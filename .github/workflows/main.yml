@@ -1,21 +1,25 @@
-on: 
+name: Deploy Code to Server...
+
+on:
   push:
     branches:
       - main
 
-name: 🚀 Deploy website on push
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
+  deploy:
     runs-on: ubuntu-latest
+
+  env:
+    SERVER_DIR: /home/gaganbabber/rails/staging/
+
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v2.3.2
-    
+    - name: Checkout code.
+      uses: actions/checkout@v1
+
     - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      uses: tailwebs/action@main
       with:
-        server: ftp.samkirkland.com
-        username: myFtpUserName
-        password: ${{ secrets.ftp_password }}
-        server-dir: /ubuntu/rails/
+        ssh-private-key: /Users/kartik/.ssh/tw_staging
+        ssh-username: gaganbabber
+        ssh-host: 104.155.230.1
+        ssh-port: 22
