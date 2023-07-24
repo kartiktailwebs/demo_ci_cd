@@ -6,18 +6,21 @@ on:
       - main
 
 jobs:
-  deploy:
+  deploy_job:
     runs-on: ubuntu-latest
 
+    name: deploy
+
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup SSH
-        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      - name: deploy file
+        uses: ChenjxJames/SFTP-Deploy-Action@v1.3.2
         with:
-          host: 104.155.230.1
-          username: gaganbabber
-          key: ${{ secrets.tw_staging }}
-          port: 22
-          server-dir: /home/gaganbabber/rails/staging/
+          server: '104.155.230.1'
+          username: 'gaganbabber'
+          ssh_private_key: ${{ secrets.tw_staging }}
+          local_path: '../../../demo_ci_cd'
+          remote_path: '/home/gaganbabber/rails/staging/'
+          args: '-o ConnectTimeout=5'
