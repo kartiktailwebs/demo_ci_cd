@@ -17,9 +17,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup SSH
-        uses: kartiktailwebs/demo_ci_cd@main
+        uses: appleboy/ssh-action@master
         with:
-          ssh-private-key: /Users/kartik/.ssh/tw_staging
+          ssh-private-key: ${{ secrets.tw_staging }}
           ssh-username: gaganbabber
           ssh-host: 104.155.230.1
           ssh-port: 22
@@ -28,4 +28,4 @@ jobs:
         run: |
           # Add your deployment commands here, e.g., rsync, scp, etc.
           # Example using rsync:
-          # rsync -r --delete ./path/to/local/files ${{ env.SERVER_DIR }}
+          rsync -r --delete /Users/kartik/Projects/4_Ruby/0_study/2_Rails_Projects_Demo/demo-ci-cd ${{ env.SERVER_DIR }}
