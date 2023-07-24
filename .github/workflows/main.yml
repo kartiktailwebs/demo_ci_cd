@@ -13,6 +13,9 @@ jobs:
       SERVER_DIR: /home/gaganbabber/rails/staging/
 
     steps:
+      - name: Checkout code.
+        uses: actions/checkout@v2
+
       - name: 📂 Sync files
         uses: kartiktailwebs/demo_ci_cd@main
         with:
