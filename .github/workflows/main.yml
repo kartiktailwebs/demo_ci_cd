@@ -1,4 +1,4 @@
-name: Deploy Code to Server...
+name: Deploy Code to Server
 
 on:
   push:
@@ -13,13 +13,19 @@ jobs:
       SERVER_DIR: /home/gaganbabber/rails/staging/
 
     steps:
-      - name: Checkout code.
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: 📂 Sync files
+      - name: Setup SSH
         uses: kartiktailwebs/demo_ci_cd@main
         with:
           ssh-private-key: /Users/kartik/.ssh/tw_staging
           ssh-username: gaganbabber
           ssh-host: 104.155.230.1
           ssh-port: 22
+
+      - name: Deploy to Server
+        run: |
+          # Add your deployment commands here, e.g., rsync, scp, etc.
+          # Example using rsync:
+          # rsync -r --delete ./path/to/local/files ${{ env.SERVER_DIR }}
