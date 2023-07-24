@@ -9,17 +9,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-  env:
-    SERVER_DIR: /home/gaganbabber/rails/staging/
+    env:
+      SERVER_DIR: /home/gaganbabber/rails/staging/
 
     steps:
-    - name: Checkout code.
-      uses: actions/checkout@v1
+      - name: Checkout code.
+        uses: actions/checkout@v1
 
-    - name: 📂 Sync files
-      uses: tailwebs/action@main
-      with:
-        ssh-private-key: /Users/kartik/.ssh/tw_staging
-        ssh-username: gaganbabber
-        ssh-host: 104.155.230.1
-        ssh-port: 22
+      - name: 📂 Sync files
+        uses: tailwebs/action@main
+        with:
+          ssh-private-key: /Users/kartik/.ssh/tw_staging
+          ssh-username: gaganbabber
+          ssh-host: 104.155.230.1
+          ssh-port: 22
