@@ -14,15 +14,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup SSH
-        uses: appleboy/ssh-action@master
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
           host: 104.155.230.1
           username: gaganbabber
           key: ${{ secrets.tw_staging }}
           port: 22
-
-      - name: Deploy to Server
-        run: |
-          # Add your deployment commands here, e.g., rsync, scp, etc.
-          # Example using rsync:
-          rsync -r --delete /Users/kartik/Projects/4_Ruby/0_study/2_Rails_Projects_Demo/demo-ci-cd gaganbabber@104.155.230.1:/home/gaganbabber/rails/staging/
+          server-dir: /home/gaganbabber/rails/staging/
