@@ -15,16 +15,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install and use RVM
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.2.2 # Replace with your desired Ruby version
-
-      - name: Install dependencies
-        run: |
-          gem install bundler
-          bundle install
-
       - name: Deploy to Google Cloud
         env:
           SERVER_IP: 104.155.230.1
@@ -36,6 +26,16 @@ jobs:
           bundle install
           rails db:migrate RAILS_ENV=development
           ENDSSH
+
+      - name: Install and use RVM
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.2 # Replace with your desired Ruby version
+
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
 
       - name: Restart Rails server
         env:
