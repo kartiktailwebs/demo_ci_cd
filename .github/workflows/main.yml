@@ -1,4 +1,4 @@
-name: Deploy Code to Server
+name: Deploy to Server
 
 on:
   push:
@@ -6,21 +6,47 @@ on:
       - main
 
 jobs:
-  deploy_job:
+  deploy:
     runs-on: ubuntu-latest
 
     name: deploy
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: deploy file
-        uses: ChenjxJames/SFTP-Deploy-Action@v1.3.2
+      - name: Install and use RVM
+        uses: ruby/setup-ruby@v1
         with:
-          server: '104.155.230.1'
-          username: 'gaganbabber'
-          ssh_private_key: ${{ secrets.tw_staging }}
-          local_path: '../../*'
-          remote_path: '/home/gaganbabber/rails/staging/demo_ci_cd/'
-          args: '-o ConnectTimeout=5'
+          ruby-version: 3.2.2 # Replace with your desired Ruby version
+
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
+
+      - name: Deploy to Google Cloud
+        env:
+          SERVER_IP: 104.155.230.1
+          SSH_PRIVATE_KEY: ${{ secrets.tw_staging }}
+        run: |
+          ssh -o StrictHostKeyChecking=no -i <(echo "$SSH_PRIVATE_KEY") gaganbabber@${SERVER_IP} 'bash -s' <<'ENDSSH'
+          cd /home/gaganbabber/rails/staging/demo_ci_cd
+          git pull origin main
+          bundle install
+          rails db:migrate RAILS_ENV=development
+          ENDSSH
+
+      - name: Restart Rails server
+        env:
+          SERVER_IP: 104.155.230.1
+          SSH_PRIVATE_KEY: ${{ secrets.tw_staging }}
+        run: |
+          ssh -o StrictHostKeyChecking=no -i <(echo "$SSH_PRIVATE_KEY") gaganbabber@${SERVER_IP} 'bash -s' <<'ENDSSH'
+          cd /home/gaganbabber/rails/staging/demo_ci_cd
+          # Assuming your Rails server is running with a process manager like systemd or upstart, you can restart it with the appropriate command.
+          # For example, using systemd:
+          # sudo systemctl restart your_rails_app.service
+          # If you're using a different process manager or custom script to start your Rails server, adjust the restart command accordingly.
+          rails s -b 0.0.0.0 -p 3001
+          ENDSSH
