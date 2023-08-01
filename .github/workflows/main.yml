@@ -20,9 +20,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Install and use SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/tw_staging
+          chmod 600 ~/.ssh/tw_staging
+
+      - name: Install SSH client
+        run: sudo apt-get update && sudo apt-get install -y openssh-client
+
       - name: Deploy to Google Cloud
         run: |
-          ssh -o StrictHostKeyChecking=no -i <(echo "$SSH_PRIVATE_KEY") ${USERNAME}@${SERVER_IP} 'bash -s' <<'ENDSSH'
+          ssh -o StrictHostKeyChecking=no ${USERNAME}@${SERVER_IP} 'bash -s' <<'ENDSSH'
           cd /home/gaganbabber/rails/staging/demo_ci_cd
           git pull
           bundle install
