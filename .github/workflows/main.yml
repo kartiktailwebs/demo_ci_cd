@@ -24,7 +24,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i <(echo "$SSH_PRIVATE_KEY") ${USERNAME}@${SERVER_IP} 'bash -s' <<'ENDSSH'
           cd /home/gaganbabber/rails/staging/demo_ci_cd
-          git pull origin main
+          git pull
           bundle install
           rails db:migrate RAILS_ENV=development
           ENDSSH
