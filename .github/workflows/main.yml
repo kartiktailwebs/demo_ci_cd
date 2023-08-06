@@ -11,9 +11,6 @@ jobs:
 
     name: Deploy
 
-    env:
-      SERVER_DIR: /home/gaganbabber/rails/staging/
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
