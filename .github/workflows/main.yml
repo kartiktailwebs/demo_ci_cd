@@ -23,4 +23,4 @@ jobs:
 
       - name: Connect to SSH server and deploy
         run: |
-          ssh -i ~/.ssh/tw_staging -o StrictHostKeyChecking=no gaganbabber@104.155.230.1 'cd /home/gaganbabber/rails/staging/demo_ci_cd && runner-script.sh'
+          ssh -i ~/.ssh/tw_staging -o StrictHostKeyChecking=no gaganbabber@104.155.230.1 'cd /home/gaganbabber/rails/staging/demo_ci_cd && sh runner-script.sh'
