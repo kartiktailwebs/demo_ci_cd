@@ -1,5 +1,12 @@
 name: Deploy Code to Server
 
+env:
+  USERNAME: 'gaganbabber'
+  SERVER_IP: '104.155.230.1'
+  SSH_PRIVATE_KEY: ${{ secrets.tw_staging }}
+  LOCAL_PATH: './*'
+  REMOTE_PATH: '/home/gaganbabber/rails/staging/demo_ci_cd/'
+
 on:
   push:
     branches:
@@ -21,9 +28,9 @@ jobs:
       - name: Setup SSH
         uses: ChenjxJames/SFTP-Deploy-Action@v1.3.2
         with:
-          server: '104.155.230.1'
-          username: 'gaganbabber'
-          ssh_private_key: ${{ secrets.tw_staging }}
-          local_path: './*'
-          remote_path: '/home/gaganbabber/rails/staging/demo_ci_cd/'
+          server: ${SERVER_IP}
+          username: ${USERNAME}
+          ssh_private_key: ${SSH_PRIVATE_KEY}
+          local_path: ${LOCAL_PATH}
+          remote_path: ${REMOTE_PATH}
           args: '-o ConnectTimeout=5'
