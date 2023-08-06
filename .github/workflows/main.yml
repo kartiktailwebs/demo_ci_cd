@@ -18,8 +18,8 @@ jobs:
       - name: Setup SSH key :)
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.tw_staging }}" > ~/.ssh/tw_staging
-          chmod 600 ~/.ssh/tw_staging
+          echo "${{ secrets.tw_staging }}" > ~/.ssh/tw_stg
+          chmod 600 ~/.ssh/tw_stg
 
       - name: Connected To SSH Server & Deploy 🚀
         run: |
