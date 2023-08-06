@@ -24,6 +24,6 @@ jobs:
           server: '104.155.230.1'
           username: 'gaganbabber'
           ssh_private_key: ${{ secrets.tw_staging }}
-          local_path: '../*'
+          local_path: './*'
           remote_path: '/home/gaganbabber/rails/staging/demo_ci_cd/'
           args: '-o ConnectTimeout=5'
