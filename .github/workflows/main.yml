@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    name: Deploy code
+    name: Deploy Code
 
     steps:
       - name: Checkout Code
