@@ -15,6 +15,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.tw_staging }}" > ~/.ssh/tw_staging
+          chmod 600 ~/.ssh/tw_staging
+
       - name: Connect to SSH server and deploy
         run: |
           ssh -i ~/.ssh/tw_staging -o StrictHostKeyChecking=no gaganbabber@104.155.230.1
