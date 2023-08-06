@@ -21,12 +21,9 @@ jobs:
       - name: Setup SSH
         uses: ChenjxJames/SFTP-Deploy-Action@v1.3.2
         with:
-          ssh-private-key: ${{ secrets.tw_staging }}
-          ssh-username: gaganbabber
-          ssh-host: 104.155.230.1
-
-      # - name: Deploy to Server
-      #   run: |
-      #     # Add your deployment commands here, e.g., rsync, scp, etc.
-      #     # Example using rsync:
-      #     rsync -r --delete ./path/to/local/files ${{ env.SERVER_DIR }}
+          server: '104.155.230.1'
+          username: 'gaganbabber'
+          ssh_private_key: ${{ secrets.tw_staging }}
+          local_path: './../../*'
+          remote_path: '/home/gaganbabber/rails/staging/demo_ci_cd/'
+          args: '-o ConnectTimeout=5'
