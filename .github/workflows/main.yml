@@ -40,7 +40,7 @@ jobs:
 
       - name: Connected To SSH Server & Deploy 🚀
         run: |
-          ssh -o StrictHostKeyChecking=no -i <(~/.ssh/tw_staging) ${{ secrets.username }}@${{ secrets.host }} 'bash -s' <<'ENDSSH'
+          ssh -o StrictHostKeyChecking=no -i <~/.ssh/tw_staging ${{ secrets.username }}@${{ secrets.host }} 'bash -s' <<'ENDSSH'
           cd /home/gaganbabber/rails/staging/demo_ci_cd
           git pull
           bundle install
