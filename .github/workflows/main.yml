@@ -38,11 +38,21 @@ jobs:
       #   run: |
       #     ssh -i ~/.ssh/tw_staging -o StrictHostKeyChecking=no ${{ secrets.username }}@${{ secrets.host }} $SERVER_PATH ' && sh runner-script.sh'
 
+      - name: Install and use RVM
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.2 # Replace with your desired Ruby version
+
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install --deployment --without development test
+
       - name: Connected To SSH Server & Deploy 🚀
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/tw_staging ${{ secrets.username }}@${{ secrets.host }} 'bash -s' <<'ENDSSH'
           cd /home/gaganbabber/rails/staging/demo_ci_cd
           git pull
-          bundle install
-          rails db:migrate
+          bundle install --deployment --without development test
+          rails db:migrate RAILS_ENV=development
           ENDSSH
