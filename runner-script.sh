@@ -1,1 +1,1 @@
-git pull && rails db:migrate
+git pull
