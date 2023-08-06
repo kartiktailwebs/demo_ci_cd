@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: deploy file
-        uses: ChenjxJames/SFTP-Deploy-Action@v1.3.2
+        uses: ruby/setup-ruby@v1
         with:
           server: '104.155.230.1'
           username: 'gaganbabber'
