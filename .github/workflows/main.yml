@@ -36,4 +36,4 @@ jobs:
       # in the sh file we are doing like git pull and migrate the database like that
       - name: Connected To SSH Server & Deploy 🚀
         run: |
-          ssh -i ~/.ssh/tw_staging -o StrictHostKeyChecking=no ${{ secrets.username }}@${{ secrets.host }} '$SERVER_PATH && sh runner-script.sh'
+          ssh -i ~/.ssh/tw_staging -o StrictHostKeyChecking=no ${{ secrets.username }}@${{ secrets.host }} $SERVER_PATH ' && sh runner-script.sh'
