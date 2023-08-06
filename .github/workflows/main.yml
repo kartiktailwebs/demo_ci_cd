@@ -15,16 +15,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up SSH
-        uses: appleboy/ssh-action@master
-        with:
-          host: '104.155.230.1'
-          username: 'gaganbabber'
-          key: ${{ secrets.tw_staging }}
-          args: '-o ConnectTimeout=5'
-
-      - name: SFTP Transfer
-        uses: appleboy/scp-action@master
-        with:
-          local: ./*
-          remote: /home/gaganbabber/rails/staging/demo_ci_cd/
+      - name: Connect to SSH server and deploy
+        run: |
+          ssh -i ${{ secrets.tw_staging }} -o StrictHostKeyChecking=no gaganbabber@104.155.230.1
+          cd /home/gaganbabber/rails/staging/demo_ci_cd
+          git pull
