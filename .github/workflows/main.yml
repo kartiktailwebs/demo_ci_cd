@@ -1,5 +1,10 @@
-name: Deploy Code to Server 🚀
+# name will be display in github action main page.
+name: ROR CI/CD Pipeline 🚀
 
+env:
+  SERVER_PATH: 'cd /home/gaganbabber/rails/staging/demo_ci_cd'
+
+# define your branch like which branch you want to create the CI/CD Pipeline
 on:
   push:
     branches:
@@ -9,18 +14,26 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    # name will be display inside the action page (once you open single workflow that page you will be see this name).
     name: Deploy Code
 
     steps:
+      # once you click on 'Deploy Code' that time this name will be displayed
       - name: Checkout Code
         uses: actions/checkout@v2
 
+      # once you click on 'Deploy Code' that time this name will be displayed
+      # here we are creating the ssh key filename and updating the filename permission.
       - name: Setup SSH key :)
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.tw_staging }}" > ~/.ssh/tw_staging
           chmod 600 ~/.ssh/tw_staging
 
+      # once you click on 'Deploy Code' that time this name will be displayed
+      # using ssh and the file you have created with the command we are connecting our hosting server
+      # using cd command we are going to the project dir and after we are running sh command
+      # in the sh file we are doing like git pull and migrate the database like that
       - name: Connected To SSH Server & Deploy 🚀
         run: |
-          ssh -i ~/.ssh/tw_staging -o StrictHostKeyChecking=no gaganbabber@104.155.230.1 'cd /home/gaganbabber/rails/staging/demo_ci_cd && sh runner-script.sh'
+          ssh -i ~/.ssh/tw_staging -o StrictHostKeyChecking=no ${{ secrets.username }}@${{ secrets.host }} '$SERVER_PATH && sh runner-script.sh'
