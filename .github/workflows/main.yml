@@ -51,6 +51,9 @@ jobs:
           gem install bundler
           bundle install --deployment --without development test
 
+      - name: Clear bundler cache
+        run: bundle --no-cache
+
       - name: Connected To SSH Server & Deploy 🚀
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/tw_staging ${{ secrets.username }}@${{ secrets.host }} 'bash -s' <<'ENDSSH'
