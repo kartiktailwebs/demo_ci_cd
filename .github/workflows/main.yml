@@ -18,10 +18,10 @@ jobs:
       - name: Set up SSH
         uses: appleboy/ssh-action@master
         with:
+          server: '104.155.230.1'
+          username: 'gaganbabber'
           ssh-private-key: ${{ secrets.tw_staging }}
-          ssh-username: 'gaganbabber'
-          ssh-host: '104.155.230.1'
-          ssh-port: 22
+          args: '-o ConnectTimeout=5'
 
       - name: SFTP Transfer
         uses: appleboy/scp-action@master
