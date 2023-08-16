@@ -26,21 +26,12 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.tw_staging }}" > ~/.ssh/tw_staging
           chmod 600 ~/.ssh/tw_staging
+
       # setting up the ruby version
       - name: Install and use RVM
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.2.2 # Replace with your desired Ruby version
-
-      # added bundle platform
-      - name: Add x86_64-linux platform to Gemfile.lock
-        run: bundle lock --add-platform x86_64-linux
-
-      # Installing gem files
-      - name: Install dependencies
-        run: |
-          gem install bundler
-          bundle install
 
       # connecting to the hosting server using ssh and deploying code on 'dev' branch
       # The -lc options tell Bash to run an interactive login shell, which should load the full environment.
