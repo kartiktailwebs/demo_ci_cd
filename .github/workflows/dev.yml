@@ -43,17 +43,15 @@ jobs:
           bundle install
 
       # connecting to the hosting server using ssh and deploying code on 'dev' branch
-      - name: Connected To SSH Server & Deploy 🚀
-        # run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/tw_staging ${{ secrets.username }}@${{ secrets.host }} "cd /home/gaganbabber/rails/staging/demo_ci_cd && git pull && bundle install"
-        run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/tw_staging ${{ secrets.username }}@${{ secrets.host }} "bash -lc 'cd /home/gaganbabber/rails/staging/demo_ci_cd && git pull && bundle install'"
-
-        # run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/tw_staging ${{ secrets.username }}@${{ secrets.host }} "cd /home/gaganbabber/rails/staging/demo_ci_cd && git pull && bundle exec bundle install"
-
-      # # connecting to the hosting server using ssh and deploying code on 'dev' branch
+      # The -lc options tell Bash to run an interactive login shell, which should load the full environment.
       # - name: Connected To SSH Server & Deploy 🚀
-      #   run: |
-      #     ssh -o StrictHostKeyChecking=no -i ~/.ssh/tw_staging ${{ secrets.username }}@${{ secrets.host }} 'bash -s' <<'ENDSSH'
-      #     cd /home/gaganbabber/rails/staging/demo_ci_cd
-      #     git pull
-      #     # bundle install --deployment --without development test
-      #     ENDSSH
+      #   run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/tw_staging ${{ secrets.username }}@${{ secrets.host }} "bash -lc 'cd /home/gaganbabber/rails/staging/demo_ci_cd && git pull && bundle install'"
+
+      # connecting to the hosting server using ssh and deploying code on 'dev' branch
+      - name: Connected To SSH Server & Deploy 🚀
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/tw_staging ${{ secrets.username }}@${{ secrets.host }} 'bash -lc' <<'ENDSSH'
+          cd /home/gaganbabber/rails/staging/demo_ci_cd
+          git pull
+          bundle i
+          ENDSSH
