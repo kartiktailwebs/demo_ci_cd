@@ -24,8 +24,8 @@ jobs:
       - name: Setup SSH key :)
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.tw_staging }}" > ~/.ssh/tw_staging
-          chmod 600 ~/.ssh/tw_staging
+          echo "${{ secrets.tailwebs_7 }}" > ~/.ssh/tailwebs_7
+          chmod 600 ~/.ssh/tailwebs_7
 
       # setting up the ruby version
       - name: Install and use RVM
@@ -37,9 +37,9 @@ jobs:
       # The -lc options tell Bash to run an interactive login shell, which should load the full environment.
       - name: Connected To SSH Server & Deploy 🚀
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/tw_staging ${{ secrets.username }}@${{ secrets.host }} << EOF
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/tailwebs_7 ${{ secrets.username }}@${{ secrets.host }} << EOF
             bash -lc '
-              cd /home/gaganbabber/rails/staging/demo_ci_cd &&
+              cd /home/siddharthkajaria/rails/staging/demo_ci_cd &&
               git pull &&
               bundle install &&
               rails db:migrate
