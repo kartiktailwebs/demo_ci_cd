@@ -45,3 +45,4 @@ jobs:
               rails db:migrate
             '
           EOF
+
