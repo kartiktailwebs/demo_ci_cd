@@ -19,19 +19,19 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      # once you click on 'Deploy Code' that time this name will be displayed
-      # here we are creating the ssh key filename and updating the filename permission.
-      - name: Setup SSH key :)
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.tailwebs_7 }}" > ~/.ssh/tailwebs_7
-          chmod 600 ~/.ssh/tailwebs_7
-
       # setting up the ruby version
       - name: Install and use RVM
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.2.2 # Replace with your desired Ruby version
+
+      # # once you click on 'Deploy Code' that time this name will be displayed
+      # # here we are creating the ssh key filename and updating the filename permission.
+      # - name: Setup SSH key :)
+      #   run: |
+      #     mkdir -p ~/.ssh
+      #     echo "${{ secrets.tailwebs_7 }}" > ~/.ssh/tailwebs_7
+      #     chmod 600 ~/.ssh/tailwebs_7
 
       # connecting to the hosting server using ssh and deploying code on 'dev' branch
       # The -lc options tell Bash to run an interactive login shell, which should load the full environment.
