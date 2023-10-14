@@ -33,7 +33,7 @@ jobs:
           echo "${{ secrets.tailwebs_7 }}" > ~/.ssh/tailwebs_7
           chmod 600 ~/.ssh/tailwebs_7
           eval $(ssh-agent)
-          ssh-add ~/.ssh/tailwebs_7
+          echo "${{ secrets.ssh_passphrase }}" | ssh-add ~/.ssh/tailwebs_7
 
       - name: Debug SSH Connection
         run: ssh -vvv -o StrictHostKeyChecking=no -i ~/.ssh/tailwebs_7 ${{ secrets.username }}@${{ secrets.host }} echo "SSH connection successful"
