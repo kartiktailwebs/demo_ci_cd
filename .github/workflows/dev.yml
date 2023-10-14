@@ -33,6 +33,9 @@ jobs:
           echo "${{ secrets.tailwebs_7 }}" > ~/.ssh/tailwebs_7
           chmod 600 ~/.ssh/tailwebs_7
 
+      - name: Debug SSH Connection
+        run: ssh -vvv -o StrictHostKeyChecking=no -i ~/.ssh/tailwebs_7 ${{ secrets.username }}@${{ secrets.host }} echo "SSH connection successful"
+
       # connecting to the hosting server using ssh and deploying code on 'dev' branch
       # The -lc options tell Bash to run an interactive login shell, which should load the full environment.
       - name: Connected To SSH Server & Deploy 🚀
@@ -45,4 +48,3 @@ jobs:
               rails db:migrate
             '
           EOF
-
